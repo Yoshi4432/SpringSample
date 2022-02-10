@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Contet-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/features.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+
+<script src="/js/common.js"></script>
+<title>検索</title>
+
+</head>
+
+<body>
+	<header>
+		<h1>
+			<a href="/"> <img alt="サンプルヘッダー" src="/img/logo_header.png">
+			</a>
+		</h1>
+	</header>
+
+	<div class="container px-4 py-5" id="featured-3">
+
+		<h2 class="pb-2 border-bottom">検索</h2>
+		<form action="search" method="get" class="pt-2">
+			<table class="row pt-2 col-4 text-nowrap table table-bordered">
+				<tr>
+					<th class="table-primary">名前</th>
+					<td class="w-75">
+						<input type="text" name="name" class="w-100">
+					</td>
+				</tr>
+				<tr>
+					<th class="table-primary">属性</th>
+					<td>
+						<select name="type1">
+							<option>
+							<option>ノーマル
+							<option>ほのお
+							<option>みず
+							<option>でんき
+							<option>くさ
+							<option>こおり
+							<option>かくとう
+							<option>どく
+							<option>じめん
+							<option>ひこう
+							<option>エスパー
+							<option>むし
+							<option>いわ
+							<option>ゴースト
+							<option>ドラゴン
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th class="table-primary">属性2</th>
+					<td>
+						<select name="type2">
+							<option>
+							<option>ノーマル
+							<option>ほのお
+							<option>みず
+							<option>でんき
+							<option>くさ
+							<option>こおり
+							<option>かくとう
+							<option>どく
+							<option>じめん
+							<option>ひこう
+							<option>エスパー
+							<option>むし
+							<option>いわ
+							<option>ゴースト
+							<option>ドラゴン
+						</select>
+					</td>
+				</tr>
+			</table>
+
+			<div class="row pt-2 ps-2">
+				<button class="btn btn-primary col-4 w-25">検索</button>
+			</div>
+		</form>
+
+		<h2 class="pb-2 border-bottom pt-5">結果</h2>
+		<table class="table table-striped">
+			<thead class="table-primary">
+				<tr>
+					<th scope="col">全国ナンバー</th>
+					<th scope="col">名前</th>
+					<th scope="col">タイプ1</th>
+					<th scope="col">タイプ2</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>
+						<a href="/mock/edit">フシギダネ</a>
+					</td>
+					<td>くさ</td>
+					<td>どく</td>
+				</tr>
+				<tr>
+					<th scope="row">4</th>
+					<td>
+						<a href="/mock/edit">ヒトカゲ</a>
+					</td>
+					<td>ほのお</td>
+					<td></td>
+				</tr>
+				<tr>
+					<th scope="row">7</th>
+					<td>
+						<a href="/mock/edit">ゼニガメ</a>
+					</td>
+					<td>みず</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+</body>

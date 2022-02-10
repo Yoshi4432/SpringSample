@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="thymeleaf/commons/common :: meta_header('編集', ~{::link}, ~{::script})">
+<link rel="stylesheet" th:href="@{/css/top.css}">
+<script type="text/javascript" th:src="@{/js/index.js}"></script>
+</head>
+
+<body>
+	<div th:replace="thymeleaf/commons/common :: header"></div>
+
+	<div class="container px-4 py-5" id="featured-3">
+		<h2 class="pb-2 border-bottom" th:text="${editForm.id == null} ? 新規登録 : 編集 ">編集</h2>
+
+		<form action="/edit" method="get" th:object="${editForm}">
+			<table class="row pt-2 col-4 text-nowrap table table-bordered">
+				<tr th:if="*{id}">
+					<th class="table-primary">ID</th>
+					<td class="w-75" th:text="*{id}">1</td>
+				</tr>
+				<tr>
+					<th class="table-primary">全国ナンバー</th>
+					<td class="w-75">
+						<input type="text" name="name" class="w-100" th:field="*{nationalPokedex}">
+					</td>
+				</tr>
+				<tr>
+					<th class="table-primary">名前</th>
+					<td class="w-75">
+						<input type="text" name="name" class="w-100" th:field="*{name}">
+					</td>
+				</tr>
+				<tr>
+					<th class="table-primary">属性</th>
+					<td>
+						<select name="type1" th:field="*{type1}">
+							<option value=""></option>
+							<option value="ノーマル">ノーマル</option>
+							<option value="ほのお">ほのお</option>
+							<option value="みず">みず</option>
+							<option value="でんき">でんき</option>
+							<option value="くさ">くさ</option>
+							<option value="こおり">こおり</option>
+							<option value="かくとう">かくとう</option>
+							<option value="どく">どく</option>
+							<option value="じめん">じめん</option>
+							<option value="ひこう">ひこう</option>
+							<option value="エスパー">エスパー</option>
+							<option value="むし">むし</option>
+							<option value="いわ">いわ</option>
+							<option value="ゴースト">ゴースト</option>
+							<option value="ドラゴン">ドラゴン</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th class="table-primary">属性2</th>
+					<td>
+						<select name="type2" th:field="*{type2}">
+							<option value=""></option>
+							<option value="ノーマル">ノーマル</option>
+							<option value="ほのお">ほのお</option>
+							<option value="みず">みず</option>
+							<option value="でんき">でんき</option>
+							<option value="くさ">くさ</option>
+							<option value="こおり">こおり</option>
+							<option value="かくとう">かくとう</option>
+							<option value="どく">どく</option>
+							<option value="じめん">じめん</option>
+							<option value="ひこう">ひこう</option>
+							<option value="エスパー">エスパー</option>
+							<option value="むし">むし</option>
+							<option value="いわ">いわ</option>
+							<option value="ゴースト">ゴースト</option>
+							<option value="ドラゴン">ドラゴン</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+
+			<div class="row pt-1 ps-2">
+				<button class="btn btn-primary col-4 w-25">登録</button>
+			</div>
+		</form>
+	</div>
+</body>
