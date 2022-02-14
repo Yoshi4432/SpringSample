@@ -13,6 +13,7 @@ import com.example.demo.repositories.MstPokemonRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Order;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
@@ -66,6 +67,12 @@ public class SearchService {
 		// where追加
 		Predicate[] ps = predicates.toArray(new Predicate[predicates.size()]);
 		query.where(ps);
+
+		/* order */
+		Order o1 = cb.asc(root.get("nationalPokedex"));
+		Order o2 = cb.asc(root.get("id"));
+		Order[] os = { o1, o2 };
+		query.orderBy(os);
 
 		/* search */
 		List<MstPokemon> list = (List<MstPokemon>) em.createQuery(query).getResultList();
