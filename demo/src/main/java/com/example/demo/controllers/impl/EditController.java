@@ -1,6 +1,7 @@
 package com.example.demo.controllers.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -53,11 +54,8 @@ public class EditController extends BaseController {
 		if (StringUtils.isNotEmpty(ef.getId())) {
 			// 編集モード
 			MstPokemon pokemon = editService.findInitData(ef);
-			ef.setId(pokemon.getId().toString());
-			ef.setNationalPokedex(pokemon.getNationalPokedex().toString());
-			ef.setName(pokemon.getName());
-			ef.setType1(pokemon.getType1());
-			ef.setType2(pokemon.getType2());
+			ModelMapper mapper = new ModelMapper();
+			mapper.map(pokemon, ef);
 		}
 
 		return dirThymeleaf + "/edit";

@@ -16,7 +16,7 @@ import lombok.Setter;
 @Entity
 public class MstPokemon {
 
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	private Integer id;
 

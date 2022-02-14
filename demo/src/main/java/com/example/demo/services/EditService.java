@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import com.example.demo.repositories.MstPokemonRepository;
 import jakarta.persistence.EntityManager;
 
 @Service
-public class EditService{
+public class EditService {
 
 	protected MstPokemonRepository mpRepository;
 	protected EntityManager em;
@@ -33,7 +34,17 @@ public class EditService{
 	}
 
 	public String edit(EditForm form) {
-		return "データ登録に失敗しました。<br>時間をおいて再度試してください";
+		String message = null;
+		try {
+			ModelMapper mapper = new ModelMapper();
+			MstPokemon pokemon = new MstPokemon();
+			mapper.map(form, pokemon);
+			mpRepository.save(pokemon);
+		} catch (Exception e) {
+			message = "データ登録に失敗しました。<br>時間をおいて再度試してください";
+		}
+
+		return message;
 	}
 
 }

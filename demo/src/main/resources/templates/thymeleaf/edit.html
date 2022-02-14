@@ -13,13 +13,14 @@
 		<h2 class="pb-2 border-bottom" th:text="${editForm.id == null} ? 新規登録 : 編集 ">編集</h2>
 
 		<form action="/edit/register" method="post" th:object="${editForm}">
-			<div class="row bg-danger p-2 p-sm-5 rounded" th:if="*{errMsg}" th:utext="*{errMsg}">
-				データ登録時のエラーメッセージ
-			</div>
+			<div class="row bg-danger p-2 p-sm-5 rounded" th:if="*{errMsg}" th:utext="*{errMsg}">データ登録時のエラーメッセージ</div>
 			<table class="row pt-2 col-4 text-nowrap table table-bordered">
 				<tr th:if="*{id}">
 					<th class="table-primary">ID</th>
-					<td class="w-75" th:text="*{id}">1</td>
+					<td class="w-75">
+						<span th:text="*{id}">1</span>
+						<input type="hidden" th:field="*{id}">
+					</td>
 				</tr>
 				<tr>
 					<th class="table-primary">全国ナンバー</th>
