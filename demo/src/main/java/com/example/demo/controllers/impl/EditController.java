@@ -3,6 +3,7 @@ package com.example.demo.controllers.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -30,21 +31,18 @@ public class EditController extends BaseController {
 	}
 
 	@PostMapping({ "/edit/register" })
-	public String editRegister(EditForm form, BindingResult br) {
-//		// TODO
-//		if (result.hasErrors()) {
-//			List<String> errorList = new ArrayList<String>();
-//			for (ObjectError e : result.getAllErrors()) {
-//				errorList.add(e.getDefaultMessage());
-//			}
-//		}
+	public String editRegister(@Validated EditForm form, BindingResult br) {
+		if (br.hasErrors()) {
+			return dirThymeleaf + "/edit";
+		}
 
-		boolean result = editService.edit(form);
-		if (result) {
+		String errMsg = editService.edit(form);
+		if (StringUtils.isEmpty(errMsg)) {
 			// 成功
 			return "redirect:/search";
 		} else {
 			// 失敗
+			form.setErrMsg(errMsg);
 			return dirThymeleaf + "/edit";
 		}
 	}

@@ -13,6 +13,9 @@
 		<h2 class="pb-2 border-bottom" th:text="${editForm.id == null} ? 新規登録 : 編集 ">編集</h2>
 
 		<form action="/edit/register" method="post" th:object="${editForm}">
+			<div class="row bg-danger p-2 p-sm-5 rounded" th:if="*{errMsg}" th:utext="*{errMsg}">
+				データ登録時のエラーメッセージ
+			</div>
 			<table class="row pt-2 col-4 text-nowrap table table-bordered">
 				<tr th:if="*{id}">
 					<th class="table-primary">ID</th>
@@ -22,12 +25,14 @@
 					<th class="table-primary">全国ナンバー</th>
 					<td class="w-75">
 						<input type="text" name="name" class="w-100" th:field="*{nationalPokedex}">
+						<div th:if="${#fields.hasErrors('nationalPokedex')}" th:errors="*{nationalPokedex}">エラーメッセージ</div>
 					</td>
 				</tr>
 				<tr>
 					<th class="table-primary">名前</th>
 					<td class="w-75">
 						<input type="text" name="name" class="w-100" th:field="*{name}">
+						<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">エラーメッセージ</div>
 					</td>
 				</tr>
 				<tr>
@@ -51,6 +56,7 @@
 							<option value="ゴースト">ゴースト</option>
 							<option value="ドラゴン">ドラゴン</option>
 						</select>
+						<div th:if="${#fields.hasErrors('type1')}" th:errors="*{type1}">エラーメッセージ</div>
 					</td>
 				</tr>
 				<tr>

@@ -23,4 +23,9 @@ public class EditForm extends BaseForm {
 	private String type1;
 
 	private String type2;
+	
+	/**
+	 * データ登録時の特殊エラーメッセージ
+	 */
+	private String errMsg;
 }
