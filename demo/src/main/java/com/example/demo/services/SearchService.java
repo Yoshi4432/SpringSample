@@ -55,6 +55,11 @@ public class SearchService {
 		if (StringUtils.isNotBlank(form.getType2())) {
 			tl.add(form.getType2());
 		}
+
+		// deleted_at
+		Predicate deletedat = cb.isNull(root.get("deletedAt"));
+		predicates.add(deletedat);
+
 		// criteria追加
 		if (tl.size() > 0) {
 			for (String type : tl) {
