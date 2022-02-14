@@ -9,10 +9,10 @@
 <body>
 	<div th:replace="thymeleaf/commons/common :: header"></div>
 
-	<div class="container px-4 py-5" id="featured-3">
+	<div class="container px-4 py-5" id="featured-3" th:object="${editForm}">
 		<h2 class="pb-2 border-bottom" th:text="${editForm.id == null} ? 新規登録 : 編集 ">編集</h2>
 
-		<form action="/edit/register" method="post" th:object="${editForm}">
+		<form id="form_edit" action="/edit/register" method="post">
 			<div class="row bg-danger p-2 p-sm-5 rounded" th:if="*{errMsg}" th:utext="*{errMsg}">データ登録時のエラーメッセージ</div>
 			<table class="row pt-2 col-4 text-nowrap table table-bordered">
 				<tr th:if="*{id}">
@@ -84,10 +84,29 @@
 					</td>
 				</tr>
 			</table>
-
-			<div class="row pt-1 ps-2">
-				<button class="btn btn-primary col-4 w-25">登録</button>
-			</div>
 		</form>
+
+		<div class="row pt-1 ps-2">
+			<button id="btn_edit" class="btn btn-primary col-4 w-25">登録</button>
+			<button id="btn_delete" class="btn btn-danger col-4 ms-4 w-25" th:if="*{id}">削除</button>
+		</div>
 	</div>
 </body>
+
+<script>
+	/* 登録ボタン */
+	let btn_edit = document.getElementById('btn_edit');
+	btn_edit.addEventListener('click', () => {
+		let form_edit = document.getElementById('form_edit');
+		form_edit.action = '/edit/edit';
+		form_edit.submit();
+	});
+	
+	/* 削除ボタン */
+	let btn_delete = document.getElementById('btn_delete');
+	btn_delete.addEventListener('click', () => {
+		let form_edit = document.getElementById('form_edit');
+		form_edit.action = '/edit/delete';
+		form_edit.submit();
+	});
+</script>

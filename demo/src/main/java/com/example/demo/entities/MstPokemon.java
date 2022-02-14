@@ -1,6 +1,6 @@
 package com.example.demo.entities;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,9 +32,9 @@ public class MstPokemon {
 
 	private Integer updatedUserId;
 
-	private Date createdAt;
+	private Timestamp createdAt;
 
-	private Date updatedAt;
+	private Timestamp updatedAt;
 
-	private Date deletedAt;
+	private Timestamp deletedAt;
 }

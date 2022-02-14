@@ -27,17 +27,30 @@ public class EditController extends BaseController {
 	protected final EditService editService;
 
 	@GetMapping({ "/edit" })
-	public String edit(EditForm form) {
+	public String index(EditForm form) {
 		return addAttributesForThymeleaf(form, null);
 	}
 
-	@PostMapping({ "/edit/register" })
-	public String editRegister(@Validated EditForm form, BindingResult br) {
+	@PostMapping({ "/edit/edit" })
+	public String edit(@Validated EditForm form, BindingResult br) {
 		if (br.hasErrors()) {
 			return dirThymeleaf + "/edit";
 		}
 
 		String errMsg = editService.edit(form);
+		if (StringUtils.isEmpty(errMsg)) {
+			// 成功
+			return "redirect:/search";
+		} else {
+			// 失敗
+			form.setErrMsg(errMsg);
+			return dirThymeleaf + "/edit";
+		}
+	}
+
+	@PostMapping({ "/edit/delete" })
+	public String delete(EditForm form) {
+		String errMsg = editService.delete(form);
 		if (StringUtils.isEmpty(errMsg)) {
 			// 成功
 			return "redirect:/search";
