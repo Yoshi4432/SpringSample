@@ -3,6 +3,7 @@ package com.example.demo.services;
 import java.sql.Timestamp;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationContext;
@@ -39,10 +40,30 @@ public class EditService {
 		String message = null;
 		// 登録
 		try {
-			// 編集の場合は既存データを取得
+			// ポケモンEntity作成
+			MstPokemon pokemon = null;
+			String id = form.getId();
+			if (StringUtils.isEmpty(id)) {
+				// 新規作成
+				pokemon = new MstPokemon();
+			} else {
+				int intId = Integer.parseInt(id);
+				Optional<MstPokemon> result = mpRepository.findById(intId);
+				pokemon = result.get();
+			}
+
+			// 画面入力を詰め替え
 			ModelMapper mapper = new ModelMapper();
-			MstPokemon pokemon = new MstPokemon();
 			mapper.map(form, pokemon);
+
+			// 作成日・更新日を設定
+			Timestamp updatedAt = new Timestamp(System.currentTimeMillis());
+			if (StringUtils.isEmpty(id)) {
+				// 新規の場合は作成日も.
+				pokemon.setCreatedAt(updatedAt);
+			}
+			pokemon.setUpdatedAt(updatedAt);
+
 			mpRepository.save(pokemon);
 		} catch (Exception e) {
 			message = "データ登録に失敗しました。<br>時間をおいて再度試してください";
@@ -51,6 +72,12 @@ public class EditService {
 		return message;
 	}
 
+	/**
+	 * ポケモンの論理削除を行う.
+	 * 
+	 * @param form 編集フォーム
+	 * @return （エラーがあれば）エラーメッセージ
+	 */
 	public String delete(EditForm form) {
 		// チェック
 		String message = null;
@@ -74,11 +101,11 @@ public class EditService {
 			// 削除日を設定
 			Timestamp deleteAt = new Timestamp(System.currentTimeMillis());
 			pokemon.setDeletedAt(deleteAt);
-			
-			//更新日を設定
+
+			// 更新日を設定
 			Timestamp updateAt = deleteAt;
 			pokemon.setUpdatedAt(updateAt);
-			
+
 			// 更新
 			mpRepository.save(pokemon);
 		} catch (Exception e) {
