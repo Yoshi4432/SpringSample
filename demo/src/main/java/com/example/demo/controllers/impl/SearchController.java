@@ -2,19 +2,26 @@ package com.example.demo.controllers.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.example.demo.controllers.BaseController;
-import com.example.demo.controllers.dtos.BaseControllerDto;
 import com.example.demo.entities.MstPokemon;
 import com.example.demo.forms.BaseForm;
 import com.example.demo.forms.impl.SearchForm;
 import com.example.demo.services.SearchService;
+import com.example.demo.utils.Training;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 検索コントローラ
+ * 
+ * @author perfect.yoshi@gmail.com
+ *
+ */
 @RequiredArgsConstructor
 @Controller
 public class SearchController extends BaseController {
@@ -24,20 +31,50 @@ public class SearchController extends BaseController {
 	 */
 	protected final SearchService searchService;
 
+	/**
+	 * 処理モード
+	 */
+	@Value("${training.mode}")
+	protected String mode;
+
+	/**
+	 * ページ名
+	 */
+	protected String page = "search";
+
+	/**
+	 * 検索初期表示
+	 * 
+	 * @param form 検索画面フォーム
+	 * @return 表示ページ
+	 */
 	@GetMapping({ "/search" })
-	public String search(@ModelAttribute SearchForm form) {
-		// パラメータ設定
-		String page = addAttributesForThymeleaf(form, null);
-		return page;
+	public String index(@ModelAttribute SearchForm form) {
+		/* トレーニングモードによって処理を分岐 */
+		if (Training.Mode.THYMELEAF.name().toString().equals(mode)) {
+			// タイムリーフ
+			return indexByThymeleaf(form);
+		} else if (Training.Mode.REACT.name().toString().equals(mode)) {
+			// React
+			return dirReact + "/" + page;
+		} else if (Training.Mode.VUE.name().toString().equals(mode)) {
+			// Vue
+			return dirVue + "/" + page;
+		} else if (Training.Mode.ANGULAR.name().toString().equals(mode)) {
+			// Angular
+			return dirReact + "/" + page;
+		} else {
+			return "redirect:/mock/" + page + ".html";
+		}
 	}
 
-	protected String addAttributesForThymeleaf(BaseForm form, BaseControllerDto dto) {
+	protected String indexByThymeleaf(BaseForm form) {
 		/* 検索 */
 		SearchForm sf = (SearchForm) form;
 		List<MstPokemon> list = searchService.search(sf);
 		sf.setMstPokemonList(list);
 
-		return dirThymeleaf + "/search";
+		return dirThymeleaf + "/" + page;
 	}
 
 }
