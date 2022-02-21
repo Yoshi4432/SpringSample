@@ -36,15 +36,6 @@ public class IndexController extends BaseController {
 		if (Training.Mode.THYMELEAF.name().toString().equals(mode)) {
 			// タイムリーフ
 			return dirThymeleaf + "/" + page;
-		} else if (Training.Mode.REACT.name().toString().equals(mode)) {
-			// React
-			return dirReact + "/" + page;
-		} else if (Training.Mode.VUE.name().toString().equals(mode)) {
-			// Vue
-			return dirVue + "/" + page;
-		} else if (Training.Mode.ANGULAR.name().toString().equals(mode)) {
-			// Angular
-			return dirReact + "/" + page;
 		} else {
 			return "redirect:/mock/" + page + ".html";
 		}

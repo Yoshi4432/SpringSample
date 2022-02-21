@@ -16,19 +16,4 @@ public abstract class BaseController {
 	 */
 	protected final String dirThymeleaf = "thymeleaf";
 
-	/**
-	 * Reactディレクトリ名
-	 */
-	protected final String dirReact = "react";
-
-	/**
-	 * Vueディレクトリ名
-	 */
-	protected final String dirVue = "vue";
-
-	/**
-	 * Angularディレクトリ名
-	 */
-	protected final String dirAngular = "angular";
-
 }
