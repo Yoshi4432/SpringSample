@@ -51,17 +51,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// @formatter:off
 		http
 			.authorizeHttpRequests()
-				.mvcMatchers("/signup").permitAll() // ログイン画面のみ認証OK
+				.mvcMatchers("/login").permitAll() // ログイン画面のみ認証OK
 				.anyRequest()
 				.authenticated() // マッチしたリクエスト以外はすべて認証をかける.
 			.and()
-			.formLogin()
+				.csrf()
+			.and()
+				.formLogin()
 				.defaultSuccessUrl("/") // ログイン先
 			.and()
-			.logout()
+				.logout()
 				.invalidateHttpSession(true) // ログアウトしたらセッションを無効化する
 				.deleteCookies("JSESSIONID") // ログアウトしたらクッキーの「JSESSIONID」を削除する
-				.logoutSuccessUrl("/signup") // ログアウト先URL
+				.logoutSuccessUrl("/login") // ログアウト先URL
+
 		;
 		// @formatter:on
 	}
